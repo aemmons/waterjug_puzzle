@@ -1,0 +1,5 @@
+Flask==1.0.0
+Jinja2==2.10
+MarkupSafe==1.0
+Werkzeug==0.14.1
+pytest==3.6.3
