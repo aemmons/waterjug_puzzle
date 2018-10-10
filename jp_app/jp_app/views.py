@@ -1,8 +1,9 @@
 from flask import Flask, render_template, jsonify
 
-from puzzle import isSolvable, JugPuzzle
+from jp_app import app
 
-app = Flask(__name__)
+from .puzzle import isSolvable, JugPuzzle
+
 
 @app.route("/find-path/<int:mjug>/<int:njug>/<int:goal>/")
 def find_path(mjug, njug, goal):
@@ -15,12 +16,16 @@ def find_path(mjug, njug, goal):
 
     jp = JugPuzzle(mjug, njug, goal)
     path = jp.findBestPath()
-    return jsonify(**{
-        "status": "success",
-        "payload": {
-            "path": path
-        }
-    })
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    if path is not None:
+        return jsonify(**{
+            "status": "success",
+            "payload": {
+                "path": path
+            }
+        })
+    else:
+        return jsonify(**{
+            "status": "fail",
+            "message": "No viable path."
+        }), 400

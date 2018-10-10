@@ -9,7 +9,6 @@ def test_isSolvable():
 
 def test_init():
     p = JugPuzzle(4,3,2)
-    print(p.__dict__)
     assert p._m == 4
     assert p._n == 3
     assert p._goal == 2

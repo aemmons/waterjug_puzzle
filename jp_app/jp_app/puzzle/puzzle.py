@@ -17,7 +17,6 @@ def isSolvable(m, n, d):
     @returns: a boolean, true if the goal state is achievable.
     """
     gcd = fractions.gcd(m, n)
-    print gcd
 
     return (
         # small jug is greater or equal to goal
@@ -55,7 +54,6 @@ class JugPuzzle:
         @rtype: List
         @returns: list of steps to goal
         """
-        goalFound = False
         searchTree = Node((0,0))
         nextLeaves = [searchTree] # 
         visited = set([(0,0)])
@@ -63,24 +61,26 @@ class JugPuzzle:
         if not isSolvable(self._m, self._n, self._goal):
             return None
 
-        while not goalFound:
-            while nextLeaves:
-                leaf = nextLeaves.pop()
-                nextSteps = self.findPossibleNextSteps(leaf.value)
+        while nextLeaves:
+            leaf = nextLeaves.pop()
+            print leaf.value
+            nextSteps = self.findPossibleNextSteps(leaf.value)
 
-                for s in nextSteps:
+            for s in nextSteps:
 
-                    # Don't revisit seen nodes in search space.
-                    if s not in visited:
-                        newNode = Node(s)
-                        leaf.addChild(newNode)
+                # Don't revisit seen nodes in search space.
+                if s not in visited:
+                    newNode = Node(s)
+                    leaf.addChild(newNode)
 
-                        # Exit case
-                        if self._goal in s:
-                            return newNode.getPath()
+                    # Exit case
+                    if self._goal in s:
+                        return newNode.getPath()
 
-                        visited.add(s)
-                        nextLeaves.insert(0, newNode)
+                    visited.add(s)
+                    nextLeaves.insert(0, newNode)
+
+        return None
 
     def findPossibleNextSteps(self, node):
         """
