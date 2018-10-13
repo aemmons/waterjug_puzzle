@@ -12,3 +12,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.app {
+  height: 100vh;
+}
+
+.board {
+  display: flex;
+  background-color: #ccc;
+  height: 100%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.form label {
+  float: left;
+  width: 250px;
+  white-space: nowrap;
+  font-size: 3em;
+}
+
+.form input {
+  // display: block;
+  overflow: hidden;
+  font-size: 3em;
+  text-align: right;
+}
+
+.form button {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius:6px;
+  font-family: 'Georgia';
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 25px;
+}
+
+.formGroup {
+  float: left;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formGroup div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.path {
+  display: block;
+  margin: 50px 25px 75px 25px;
+}
+
+.step {
+  font-size: 2em;
+  display: block;
+  float: left;
+}
