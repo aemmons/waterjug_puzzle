@@ -45,7 +45,7 @@ code {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius:6px;
-  font-family: 'Georgia';
+  font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
   cursor: pointer;
   background-color: #4CAF50;
@@ -69,6 +69,13 @@ code {
 .formGroup div {
   margin-left: auto;
   margin-right: auto;
+}
+
+.warning {
+  color: red;
+  margin: 30px;
+  font-size: 5em;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .path {
