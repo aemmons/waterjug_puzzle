@@ -76,8 +76,23 @@ code {
   margin: 50px 25px 75px 25px;
 }
 
+.stepContainer {
+  float: left;
+  min-width: 200px;
+}
+
 .step {
   font-size: 2em;
   display: block;
   float: left;
+}
+
+.step span {
+  font-size: .5em;
+}
+
+.stepArrow {
+  float: left;
+  margin: 20px 25px 0px 20px;
+  font-size: 3em;
 }

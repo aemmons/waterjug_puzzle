@@ -35,6 +35,12 @@ function Warning(props) {
     }
 }
 
+function Step(props) {
+    return (
+        <div className="step" key="step{props.stepNum}"><span>{props.stepText}</span><br />[ {props.step[0]}, {props.step[1]} ]</div>
+    )
+}
+
 class Form extends React.Component {
 
     constructor(props){
@@ -85,11 +91,18 @@ class Form extends React.Component {
     var path = this.state.path.map( (step, i) => {
         var arrow = null;
         if (i !== this.state.path.length-1){
-            arrow = <span> > </span>;
+            arrow = <div className="stepArrow" key="arrow{i}"><span>></span></div>;
         }
 
         return (
-            <div className="step" key={i}>[ {step[0]}, {step[1]} ]{arrow}</div>
+            <div className="stepContainer" key={i}>
+                <Step
+                    stepNum = {i}
+                    stepText = {step.text}
+                    step = {step.step}
+                />
+                {arrow}
+            </div>
         )
     });
     return path;

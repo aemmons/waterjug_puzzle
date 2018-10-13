@@ -54,7 +54,7 @@ class JugPuzzle:
         @rtype: List
         @returns: list of steps to goal
         """
-        searchTree = Node((0,0))
+        searchTree = Node({"step": (0,0), "text": "Start"})
         nextLeaves = [searchTree] # 
         visited = set([(0,0)])
 
@@ -64,20 +64,20 @@ class JugPuzzle:
         while nextLeaves:
             leaf = nextLeaves.pop()
             print leaf.value
-            nextSteps = self.findPossibleNextSteps(leaf.value)
+            nextSteps = self.findPossibleNextSteps(leaf.value["step"])
 
             for s in nextSteps:
 
                 # Don't revisit seen nodes in search space.
-                if s not in visited:
+                if s["step"] not in visited:
                     newNode = Node(s)
                     leaf.addChild(newNode)
 
                     # Exit case
-                    if self._goal in s:
+                    if self._goal in s["step"]:
                         return newNode.getPath()
 
-                    visited.add(s)
+                    visited.add(s["step"])
                     nextLeaves.insert(0, newNode)
 
         return None
@@ -87,22 +87,22 @@ class JugPuzzle:
         Using the possible actions, find viable next steps.
         """
         actions = [
-            self.fillM, # Fill M jug
-            self.fillN, # Fill N jug
-            self.emptyM, # Empty M jug
-            self.emptyN, # Empty N jug
-            self.transferM2N,# Move all from M to N
-            self.transferN2M, # Move all from N to M
-            self.pTransferM2N, # Partial transfer M to N
-            self.pTransferN2M # Partial transfer N to M
+            (self.fillM, "Fill M Jug"), 
+            (self.fillN, "Fill N Jug"),
+            (self.emptyM, "Empty M jug"),
+            (self.emptyN, "Empty N jug"),
+            (self.transferM2N, "Full Transfer from M to N"),
+            (self.transferN2M, "Full Transfer from N to M"),
+            (self.pTransferM2N, "Partial Transfer M to N"),
+            (self.pTransferN2M, "Partial Transfer N to M")
         ]
         nextStates = []
 
-        for a in actions:
-            possible, state = a(node)
+        for action, text in actions:
+            possible, state = action(node)
 
             if possible:
-                nextStates.append(state)
+                nextStates.append({"step": state, "text": text})
 
         return nextStates
 
