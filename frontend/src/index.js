@@ -37,8 +37,28 @@ function Warning(props) {
 
 function Step(props) {
     return (
-        <div className="step" key="step{props.stepNum}"><span>{props.stepText}</span><br />[ {props.step[0]}, {props.step[1]} ]</div>
+        <div className="step" key="step{props.stepNum}"><span>{props.stepText}</span><br /><span className="stepValue">[ {props.step[0]}, {props.step[1]} ]</span></div>
     )
+}
+
+function Path(props) {
+    if(props.path.length > 0) {
+        return (
+            <div className="path">
+                {props.path
+                    .map( (step, i) => {
+                        return (
+                            <Step
+                                stepText = {step.text}
+                                step = {step.step}
+                            />
+                        )
+                    })
+                    .reduce( (prev, curr) => [ prev, <div className="stepArrow"><span>></span></div>, curr])}
+            </div>
+        )
+    }
+    return null;
 }
 
 class Form extends React.Component {
@@ -68,7 +88,7 @@ class Form extends React.Component {
       })
       .then( (data) => {
         if(data.status === "success"){
-            this.setState({path: data.payload.path});
+            this.setState({warning: false, path: data.payload.path});
         }else{
             this.setState({warning: true, path: []});
         }
@@ -85,27 +105,6 @@ class Form extends React.Component {
 
   handleGoalChange(e){
       this.setState({ goal: e.target.value});
-  }
-
-  renderPath(){
-    var path = this.state.path.map( (step, i) => {
-        var arrow = null;
-        if (i !== this.state.path.length-1){
-            arrow = <div className="stepArrow" key="arrow{i}"><span>></span></div>;
-        }
-
-        return (
-            <div className="stepContainer" key={i}>
-                <Step
-                    stepNum = {i}
-                    stepText = {step.text}
-                    step = {step.step}
-                />
-                {arrow}
-            </div>
-        )
-    });
-    return path;
   }
 
   render() {
@@ -138,9 +137,7 @@ class Form extends React.Component {
 
             <Warning warning={this.state.warning} />
 
-            <div className="path">
-                {this.renderPath()}
-            </div>
+            <Path path={this.state.path} />
         </div>
     );
   }
