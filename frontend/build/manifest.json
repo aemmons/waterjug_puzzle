@@ -1,0 +1,9 @@
+{
+  "short_name": "WaterJug Puzzle",
+  "name": "Solve the Waterjug puzzle for any input!",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#eeeeee"
+}
