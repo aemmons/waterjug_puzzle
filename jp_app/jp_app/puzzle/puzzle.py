@@ -75,7 +75,9 @@ class JugPuzzle:
 
                     # Exit case
                     if self._goal in s["step"]:
-                        return newNode.getPath()
+                        goal = Node({"step": s["step"], "text": "GOAL!"})
+                        newNode.addChild(goal)
+                        return goal.getPath()
 
                     visited.add(s["step"])
                     nextLeaves.insert(0, newNode)
