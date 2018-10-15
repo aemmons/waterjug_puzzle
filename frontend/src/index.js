@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-var url = "http://127.0.0.1:5000/find-path";
+// NOTE: this IP may differ depending on docker-machine configuration
+var url = "http://192.168.99.100:5000/find-path";
 class App extends React.Component {
     render() {
         return (
