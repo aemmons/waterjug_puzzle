@@ -28,11 +28,15 @@ function Jug(props){
         classes = `jug ${classSize}`;
 
     var fillPerc = props.jugSize > 0 ? Math.ceil( (props.fill / props.jugSize) * 100) : 0;
+    var style = {
+        height: fillPerc + "%",
+        transition: "height 250ms ease"
+    }
 
     return (
         <div className={classes}>
             <div className="waterContainer">
-                <div className="water" style={{height: fillPerc + "%"}}>
+                <div className="water" style={style}>
                 </div>
             </div>
         </div>
@@ -92,9 +96,7 @@ class PlayBtn extends React.Component {
         super(props);
 
         this.state = {
-            playing: false,
-            currentStep: props.currentStep,
-            hasPath: (props.path.length > 0)
+            playing: false
         };
     }
 
@@ -109,8 +111,7 @@ class PlayBtn extends React.Component {
     }
 
     render() {
-        // var style = this.state.hasPath ? {}: {display: "none"};
-        var style = {}
+        var style = this.props.hasPath ? {}: {display: "none"};
         return (
             <button disabled={this.state.playing} style={style} onClick={() => this.handleClick()}>Play {this.state.currentStep}</button>
         )
@@ -123,23 +124,17 @@ class Form extends React.Component {
         super(props);
 
         this.state = {
-            bigJug: 0,
-            littleJug: 0,
+            jugM: 0,
+            jugN: 0,
             goal: 0,
             path: [],
             warning: false,
             currentStep: 0
         }
-
-        // this.handleBigJugChange = this.handleBigJugChange.bind(this);
-        // this.handleLittleJugChange = this.handleLittleJugChange.bind(this);
-        // this.handleGoalChange = this.handleGoalChange.bind(this);
-        // this.handleClick = this.handleClick.bind(this);
-        // this.handlePlayBtnClick = this.handlePlayBtnClick.bind(this);
     }
 
   handleClick() {
-      return fetch(url + "/" + this.state.bigJug + "/" + this.state.littleJug + "/" + this.state.goal + "/",
+      return fetch(url + "/" + this.state.jugM + "/" + this.state.jugN + "/" + this.state.goal + "/",
       {crossDomain: true})
       .then( (response) => {
           return response.json();
@@ -153,12 +148,12 @@ class Form extends React.Component {
       });
   }
 
-  handleBigJugChange(e) {
-      this.setState({ bigJug: e.target.value});
+  handleJugMChange(e) {
+      this.setState({ jugM: e.target.value});
   }
 
-  handleLittleJugChange(e) {
-      this.setState({ littleJug: e.target.value});
+  handleJugNChange(e) {
+      this.setState({ jugN: e.target.value});
   }
 
   handleGoalChange(e) {
@@ -172,7 +167,6 @@ class Form extends React.Component {
             inter = setInterval( () => {
                 if(j > 0){
                     this.setState({currentStep: this.state.currentStep+1})
-                    console.log("Next Step" + this.state.currentStep)
                     callback(this.state.currentStep)
                     j--;
                 }else{
@@ -186,8 +180,8 @@ class Form extends React.Component {
   }
 
   render() {
-    var mBig = this.state.bigJug >= this.state.littleJug;
-    var nBig = this.state.littleJug >= this.state.bigJug;
+    var mBig = this.state.jugM >= this.state.jugN;
+    var nBig = this.state.jugN >= this.state.jugM;
 
     var currStep = this.state.path[this.state.currentStep] ? this.state.path[this.state.currentStep] : {step: [0,0], text: "Start"};
     var mFill = currStep.step[0];
@@ -197,20 +191,20 @@ class Form extends React.Component {
         <div className="form">
             <div className="jugs">
                 <div className="jugsCenter">
-                <Jug jugSize={this.state.bigJug} bigSize={mBig} fill={mFill} />
-                <Jug jugSize={this.state.littleJug} bigSize={nBig} fill={nFill} />
+                    <Jug jugSize={this.state.jugM} bigSize={mBig} fill={mFill} />
+                    <Jug jugSize={this.state.jugN} bigSize={nBig} fill={nFill} />
                 </div>
             </div>
             <br style={{ clear: "both" }} />
             <form>
                 <div className="formGroup">
-                    <label name="bigjug">BigJug</label>
-                    <div><input type="text" id="bigjug" name="bigjug" size="5" value={this.state.bigJug} onChange={ (e) => this.handleBigJugChange(e) }></input></div>
+                    <label name="jugM">Jug M</label>
+                    <div><input type="text" id="jugM" name="jugM" size="5" value={this.state.jugM} onChange={ (e) => this.handleJugMChange(e) }></input></div>
                 </div>
 
                 <div className="formGroup">
-                    <label name="littlejug">LittleJug</label>
-                    <div><input type="text" id="littlejug" name="littlejug" size="5" value={this.state.littleJug} onChange={ (e) => this.handleLittleJugChange(e) }></input></div>
+                    <label name="jugN">Jug N</label>
+                    <div><input type="text" id="jugN" name="jugN" size="5" value={this.state.jugN} onChange={ (e) => this.handleJugNChange(e) }></input></div>
                 </div>
 
                 <div className="formGroup">
@@ -229,7 +223,7 @@ class Form extends React.Component {
 
             <Warning warning={this.state.warning} />
 
-            <PlayBtn path={this.state.path} handleClick={ (cb) => this.handlePlayBtnClick(cb) } currentStep={this.state.currentStep} />
+            <PlayBtn hasPath={this.state.path.length > 0} handleClick={ (cb) => this.handlePlayBtnClick(cb) } currentStep={this.state.currentStep} />
 
             <Path path={this.state.path} />
         </div>
