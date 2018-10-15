@@ -20,11 +20,14 @@ code {
 .board {
   display: flex;
   background-color: #ccc;
-  height: 100%;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.form {
+  padding: 50px 0px;
 }
 
 .form label {
@@ -86,6 +89,7 @@ code {
 .step {
   float: left;
   min-width: 200px;
+  height: 110px;
   font-size: 2em;
   display: block;
   float: left;
@@ -101,6 +105,53 @@ code {
 
 .stepArrow {
   float: left;
-  margin: 30px 25px 0px 20px;
+  margin: 0px 25px;
   font-size: 3em;
+  line-height: 110px;
+  vertical-align: middle;
+}
+
+.jugs {
+  height: 300px;
+}
+
+.jugsCenter {
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.jug {
+  border: solid 3px #454545;
+  background-color: #ababab;
+  display: block;
+  float: left;
+  position: relative;
+
+  margin: 50px 0px 50px 100px;
+}
+
+
+.big {
+  height: 200px;
+  width: 150px;
+}
+
+.little {
+  height: 180px;
+  width: 130px;
+}
+
+.waterContainer {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+}
+
+.water {
+  background-color: #00a6ff;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
