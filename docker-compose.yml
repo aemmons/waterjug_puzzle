@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  jp_app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.app
+    ports:
+      - "5000:80"
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.frontend
+    ports:
+      - "3000:90"
+    depends_on:
+      - jp_app
+    environment:
+      - FLASK_APP=JP_APP
