@@ -8,7 +8,11 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-            <Board />
+                <div className="header">
+                    <h1>WaterJug Puzzle App</h1>
+                    <p>Enter sizes for Jugs M and N, and a Goal value then click `Find Path`!</p>
+                </div>
+                <Board />
             </div>
         )
     }
@@ -65,7 +69,7 @@ function Step(props) {
 
 function StepArrow(props) {
     return (
-        <div className="stepArrow"><span>></span></div>
+        <div className="stepArrow"><span>➾</span></div>
     )
 }
 

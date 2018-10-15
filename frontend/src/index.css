@@ -18,6 +18,14 @@ code {
   height: 100vh;
 }
 
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 4em;
+}
+
 .board {
   display: flex;
   width: 80%;
@@ -27,7 +35,7 @@ code {
 }
 
 .form {
-  padding: 50px 0px;
+  padding: 0px 0px 50px 0px;
 }
 
 .form label {
