@@ -6,7 +6,11 @@ services:
       context: .
       dockerfile: ./Dockerfile.app
     ports:
-      - "5000:80"
+      - "5000:5000"
+    environment:
+      - FLASK_APP=jp_app
+      - FLASK_DEBUG=true
+    command: flask run --host=0.0.0.0
   frontend:
     build:
       context: .
