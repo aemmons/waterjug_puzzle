@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #efefef;
 }
 
 code {
@@ -19,7 +20,6 @@ code {
 
 .board {
   display: flex;
-  background-color: #ccc;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -38,7 +38,6 @@ code {
 }
 
 .form input {
-  // display: block;
   overflow: hidden;
   font-size: 3em;
   text-align: right;
@@ -112,7 +111,7 @@ code {
 }
 
 .jugs {
-  height: 300px;
+  height: 320px;
 }
 
 .jugsCenter {
@@ -127,9 +126,8 @@ code {
   float: left;
   position: relative;
 
-  margin: 50px 0px 50px 100px;
+  margin: 50px 0px 10px 100px;
 }
-
 
 .big {
   height: 200px;
@@ -149,9 +147,23 @@ code {
   height: 90%;
 }
 
+.waterAmount{
+  position: relative;
+}
+
 .water {
   background-color: #00a6ff;
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.jugText {
+  clear: both;
+  text-align: center;
+}
+
+.jugText span {
+  font-size: 3em;
+  color: #777777;
 }

@@ -38,6 +38,7 @@ function Jug(props){
             <div className="waterContainer">
                 <div className="water" style={style}>
                 </div>
+                <div className="waterAmount">{props.fill}</div>
             </div>
         </div>
     )
@@ -72,6 +73,7 @@ function Path(props) {
         var idx = 0;
         return (
             <div className="path">
+                <h3>PATH</h3>
                 {props.path
                     .map( (step, i) => {
                         idx = `stepArrow${i}`;
@@ -96,14 +98,15 @@ class PlayBtn extends React.Component {
         super(props);
 
         this.state = {
-            playing: false
+            playing: false,
+            currentStep: null
         };
     }
 
     handleClick() {
         this.setState({playing: true})
         this.props.handleClick( (step) => this.setState({currentStep: step}) )
-        .then( () => this.setState({playing: false}) )
+        .then( () => this.setState({playing: false, currentStep: null}) )
     }
 
     handleUpdate() {
@@ -194,8 +197,10 @@ class Form extends React.Component {
                     <Jug jugSize={this.state.jugM} bigSize={mBig} fill={mFill} />
                     <Jug jugSize={this.state.jugN} bigSize={nBig} fill={nFill} />
                 </div>
+                <div className="jugText">
+                    <span>{this.state.path.length > 0 ? currStep.text : null}</span>
+                </div>
             </div>
-            <br style={{ clear: "both" }} />
             <form>
                 <div className="formGroup">
                     <label name="jugM">Jug M</label>
