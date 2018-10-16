@@ -4,7 +4,7 @@ from ..puzzle import JugPuzzle, isSolvable, generateProblemSpace
 
 def test_isSolvable():
     assert isSolvable(6, 10, 2) == True
-    assert isSolvable(9, 14, 10) == False
+    assert isSolvable(9, 14, 10) == True
     assert isSolvable(9, 14, 0) == False
 
 def test_init():
@@ -14,7 +14,14 @@ def test_init():
     assert p._goal == 2
 
 def test_findBestPath():
-    expected = [(0,0), (0,3), (3,0), (3,3), (4,2)]
+    expected = [
+        {"step": (0,0), "text": "Start"},
+        {"step": (0,3), "text": "Fill N Jug"},
+        {"step": (3,0), "text": "Full Transfer from N to M"},
+        {"step": (3,3), "text": "Fill N Jug"},
+        {"step": (4,2), "text": "Partial Transfer N to M"},
+        {"step": (4,2), "text": "GOAL!"}
+    ]
     p = JugPuzzle(4,3,2)
     path = p.findBestPath()
 
@@ -24,8 +31,8 @@ def test_findPossibleNextSteps():
     p = JugPuzzle(4,3,2)
 
     steps = p.findPossibleNextSteps((0,0))
-    assert (0,3) in steps
-    assert (4,0) in steps
+    assert {"step": (0,3), "text": "Fill N Jug"} in steps
+    assert {"step": (4,0), "text": "Fill M Jug"} in steps
     assert len(steps) == 2
 
 def test_fillM():

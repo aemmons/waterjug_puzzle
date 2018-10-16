@@ -20,7 +20,7 @@ def isSolvable(m, n, d):
 
     return (
         # small jug is greater or equal to goal
-        ((m > n) and n >= d) or ((n > m) and m >= d) \
+        ((m > n) and m >= d) or ((n > m) and n >= d) \
         # greated common denominator is less than or equal to goal
         and gcd <= d \
         # goal is divided evenly by greatest common denominator
