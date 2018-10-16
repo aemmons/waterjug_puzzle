@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // NOTE: this IP may differ depending on docker-machine configuration
-var url = "http://192.168.99.100:5000/find-path";
 class App extends React.Component {
     render() {
         return (
@@ -137,11 +136,13 @@ class Form extends React.Component {
             goal: 0,
             path: [],
             warning: false,
-            currentStep: 0
+            currentStep: 0,
+            dockerIP: "192.168.99.100"
         }
     }
 
   handleClick() {
+      var url = `http://${this.state.dockerIP}:5000/find-path`
       return fetch(url + "/" + this.state.jugM + "/" + this.state.jugN + "/" + this.state.goal + "/",
       {crossDomain: true})
       .then( (response) => {
@@ -187,6 +188,13 @@ class Form extends React.Component {
         })
   }
 
+  handleIPChange(e) {
+      /*
+      This is a very brittle hack to allow for custom IPs to be used. There is no validation or checking of IP.
+      */
+      this.setState({ dockerIP: e.target.value});
+  }
+
   render() {
     var mBig = this.state.jugM >= this.state.jugN;
     var nBig = this.state.jugN >= this.state.jugM;
@@ -197,6 +205,11 @@ class Form extends React.Component {
 
     return (
         <div className="form">
+            <div className="dockerIP">
+                <label name="dockerip">DockerMachine IP</label>
+                <div><input type="text" id="dockerip" name="dockerip" size="15" value={this.state.dockerIP} onChange={ (e) => this.handleIPChange(e) }></input></div>
+            </div>
+
             <div className="jugs">
                 <div className="jugsCenter">
                     <Jug jugSize={this.state.jugM} bigSize={mBig} fill={mFill} />

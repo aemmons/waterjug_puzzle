@@ -81,6 +81,11 @@ code {
   margin-right: auto;
 }
 
+.dockerIP label, .dockerIP input{
+  font-size: 1.5em;
+  float: none;
+}
+
 .warning {
   color: red;
   margin: 30px;
